@@ -1,0 +1,41 @@
+local lp = game.Players.LocalPlayer
+local ws = game:GetService("Workspace")
+local run = game:GetService("RunService")
+
+-- Create pet part
+local pet = Instance.new("Part")
+pet.Size = Vector3.new(8, 8, 8)
+pet.BrickColor = BrickColor.new("Bright blue")
+pet.Material = Enum.Material.Neon
+pet.Anchored = false
+pet.CanCollide = false
+pet.Position = Vector3.new(0, 10, 0)
+pet.Name = "TitanicSadCat"
+pet.Parent = ws
+
+-- Sad cat face
+local face = Instance.new("Decal", pet)
+face.Texture = "rbxassetid://7513232714"
+face.Face = Enum.NormalId.Front
+
+-- Name label
+local gui = Instance.new("BillboardGui", pet)
+gui.Size = UDim2.new(0, 200, 0, 50)
+gui.StudsOffset = Vector3.new(0, 6, 0)
+gui.AlwaysOnTop = true
+local label = Instance.new("TextLabel", gui)
+label.Size = UDim2.new(1, 0, 1, 0)
+label.BackgroundTransparency = 1
+label.Text = "Titanic Sad Cat"
+label.TextColor3 = Color3.fromRGB(255, 215, 0) -- Gold text
+label.TextStrokeTransparency = 0
+label.TextScaled = true
+label.Font = Enum.Font.FredokaOne
+
+-- Make pet follow the player
+run.Heartbeat:Connect(function()
+	if lp.Character and lp.Character:FindFirstChild("HumanoidRootPart") then
+		local root = lp.Character.HumanoidRootPart
+		pet.CFrame = root.CFrame * CFrame.new(4, 0, 4)
+	end
+end)
